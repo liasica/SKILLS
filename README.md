@@ -7,7 +7,7 @@
 ### Claude Code
 
 ```
-/plugin marketplace add liasica/SKILLS
+/plugin marketplace add liasica/skills
 /plugin install liasica-skills@liasica-skills
 ```
 
@@ -16,7 +16,7 @@
 ### Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/liasica/SKILLS
+gemini extensions install https://github.com/liasica/skills
 ```
 
 ### Codex 与其他
@@ -24,13 +24,13 @@ gemini extensions install https://github.com/liasica/SKILLS
 没有 plugin 机制的 harness 用兜底脚本，把 skills 软链进它的 `skills/` 目录：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/liasica/SKILLS/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/liasica/skills/master/install.sh | bash
 ```
 
 同一条命令负责安装和更新。默认克隆到 `~/.local/share/liasica-skills`，用 `SKILLS_DIR` 改；探测不到的 harness 用 `SKILL_TARGETS` 指定：
 
 ```bash
-SKILL_TARGETS="$HOME/.foo/skills" curl -fsSL https://raw.githubusercontent.com/liasica/SKILLS/master/install.sh | bash
+SKILL_TARGETS="$HOME/.foo/skills" curl -fsSL https://raw.githubusercontent.com/liasica/skills/master/install.sh | bash
 ```
 
 脚本只建软链，不修改任何 harness 的配置文件。

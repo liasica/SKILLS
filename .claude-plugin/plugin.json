@@ -5,8 +5,8 @@
   "author": {
     "name": "liasica"
   },
-  "homepage": "https://github.com/liasica/SKILLS",
-  "repository": "https://github.com/liasica/SKILLS",
+  "homepage": "https://github.com/liasica/skills",
+  "repository": "https://github.com/liasica/skills",
   "license": "MIT",
   "keywords": ["skills", "conventions", "punctuation", "commit", "github-actions"]
 }

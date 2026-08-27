@@ -8,7 +8,7 @@
 # 幂等，可重复执行；不修改任何 harness 的配置文件
 set -euo pipefail
 
-REPO_URL="${SKILLS_REPO:-https://github.com/liasica/SKILLS.git}"
+REPO_URL="${SKILLS_REPO:-https://github.com/liasica/skills.git}"
 REPO_DIR="${SKILLS_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/liasica-skills}"
 BIN="${XDG_BIN_HOME:-$HOME/.local/bin}"
 
