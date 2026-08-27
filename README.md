@@ -1,25 +1,43 @@
 # SKILLS
 
-跨项目通用开发规范，做成 skill 与检查器，一键安装到 Claude Code、Codex、Gemini CLI。
+通用开发规范，做成 skill 与检查器，支持 Claude Code、Gemini CLI、Codex。
 
 ## 安装
 
-```bash
-git clone git@github.com:liasica/SKILLS.git ~/projects/liasica/skills
-bash ~/projects/liasica/skills/install.sh
+### Claude Code
+
+```
+/plugin marketplace add liasica/SKILLS
+/plugin install liasica-skills@liasica-skills
 ```
 
-安装脚本探测本机已有的 harness，把 skills 软链进各自的 `skills/` 目录，检查器软链到 `~/.local/bin/check-punct`。软链方式，`git pull` 后无需重装；脚本幂等，可重复执行。
+装到 `~/.claude/plugins/cache/` 标准位置，skills 与 hook 一并生效，不改动 `settings.json`。更新用 `/plugin update`。
 
-追加其他 harness：
+### Gemini CLI
 
 ```bash
-SKILL_TARGETS="$HOME/.foo/skills $HOME/.bar/skills" bash install.sh
+gemini extensions install https://github.com/liasica/SKILLS
 ```
+
+### Codex 与其他
+
+没有 plugin 机制的 harness 用兜底脚本，把 skills 软链进它的 `skills/` 目录：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/liasica/SKILLS/master/install.sh | bash
+```
+
+同一条命令负责安装和更新。默认克隆到 `~/.local/share/liasica-skills`，用 `SKILLS_DIR` 改；探测不到的 harness 用 `SKILL_TARGETS` 指定：
+
+```bash
+SKILL_TARGETS="$HOME/.foo/skills" curl -fsSL https://raw.githubusercontent.com/liasica/SKILLS/master/install.sh | bash
+```
+
+脚本只建软链，不修改任何 harness 的配置文件。
 
 ## skills
 
-Markdown + frontmatter，Claude Code、Codex、Gemini CLI 通用。
+Markdown + frontmatter，各 harness 通用。
 
 | skill | 触发场景 |
 | --- | --- |
@@ -32,6 +50,8 @@ Markdown + frontmatter，Claude Code、Codex、Gemini CLI 通用。
 
 检查中英文标点混用、注释块尾句末标点、`→` `×` 这类非 ASCII 符号，以及工作流里的中文 `name:`。只报不改。
 
+Claude Code 装了 plugin 后由 PostToolUse hook 自动跑，写文件后立即反馈。其他场景手动调：
+
 ```bash
 check-punct path/to/file.go
 find . -name '*.dart' -exec check-punct {} \;
@@ -39,7 +59,7 @@ find . -name '*.dart' -exec check-punct {} \;
 
 覆盖 `.go` `.dart` `.ts` `.tsx` `.js` `.css` 的注释，以及 `.yaml` `.sh` `.sql` `.py` 的 `#` 与 `--` 注释。反引号内、`「」` 内、`[Foo]` doc 引用、URL、`TODO:`、`//go:embed`、端口号、CSS 属性名、函数调用括号都不参与检查。误报时在该行加 `punct-ignore` 豁免。
 
-无违规时静默退出 0；有违规时输出 JSON（`decision` 与 `reason`），便于接进 hook。Claude Code 的 PostToolUse hook 由安装脚本自动配好，写文件后立即反馈。其他 harness 没有等价机制，手动调用或接进自己的流程。
+无违规时静默退出 0；有违规时输出带 `decision` 与 `reason` 的 JSON，便于接进别的 hook 体系。
 
 ## 设计取舍
 
@@ -49,4 +69,4 @@ find . -name '*.dart' -exec check-punct {} \;
 
 **什么该做检查器而非 skill**：与书写默认相反、事后不自查就发现不了的细粒度规则。中文注释结尾不加句号就是典型：写的时候极易被「中文句子写完加句号」的默认压过去。skill 只是换个地方存同一条指令，仍然靠自觉；检查器由工具强制执行。
 
-标点规范正文仍应留在常驻记忆，因为它约束一切自然语言输出（对话、文档、提交信息），而检查器只能覆盖代码文件里的注释。两者是分工，不是重复。
+检查器只覆盖代码文件里的注释。约束对话、文档正文与提交信息的标点规范仍应留在常驻记忆里，两者是分工。

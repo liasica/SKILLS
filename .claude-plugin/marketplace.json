@@ -1,0 +1,19 @@
+{
+  "name": "liasica-skills",
+  "owner": {
+    "name": "liasica"
+  },
+  "metadata": {
+    "description": "通用开发规范 skill 与标点检查器",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "liasica-skills",
+      "source": "./",
+      "description": "项目初始化、提交信息、GitHub Actions、superpowers 产出存放四个 skill，外加写文件后自动跑的中英文标点与 ASCII 符号检查器",
+      "category": "conventions",
+      "tags": ["conventions", "punctuation", "commit", "github-actions", "chinese"]
+    }
+  ]
+}

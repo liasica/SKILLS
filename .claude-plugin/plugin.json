@@ -1,0 +1,12 @@
+{
+  "name": "liasica-skills",
+  "description": "通用开发规范：项目初始化、提交信息、GitHub Actions、superpowers 产出存放，外加中英文标点与 ASCII 符号检查器",
+  "version": "1.0.0",
+  "author": {
+    "name": "liasica"
+  },
+  "homepage": "https://github.com/liasica/SKILLS",
+  "repository": "https://github.com/liasica/SKILLS",
+  "license": "MIT",
+  "keywords": ["skills", "conventions", "punctuation", "commit", "github-actions"]
+}
