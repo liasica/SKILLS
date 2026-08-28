@@ -62,6 +62,14 @@ find . -name '*.dart' -exec check-punct {} \;
 
 无违规时静默退出 0；有违规时输出带 `decision` 与 `reason` 的 JSON，便于接进别的 hook 体系。
 
+## 自动生效
+
+plugin 带一个 SessionStart hook，在会话启动、`/clear`、compact 之后注入一句硬要求：命中 skill 的场景必须先加载再动手，不许凭记忆作答。
+
+注入内容只有一句约 160 字符，因为 skill 名与 description 本来就常驻在 skill 列表里，重复注入是浪费；缺的只是「必须加载」这条约束。
+
+它把「得想起来有这个 skill」变成「开头就摆在面前」，是概率提升而非强制。真正的强制是检查器：标点靠 `check-punct` 在 PostToolUse 拦截，Go 靠 `gclint` 在提交前把关。
+
 ## 设计取舍
 
 **什么该做 skill**：有明确触发场景、内容超过几行的流程。需要时加载，平时不占上下文。
