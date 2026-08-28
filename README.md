@@ -45,6 +45,7 @@ Markdown + frontmatter，各 harness 通用。
 | `git-commit` | 写提交信息或 PR 描述 |
 | `github-actions` | 创建或修改工作流 |
 | `superpowers-output` | 使用 superpowers 能力 |
+| `go-style` | 写、改、重构或审查 Go 代码 |
 
 ## check-punct
 

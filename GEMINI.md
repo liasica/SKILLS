@@ -8,5 +8,6 @@
 | `git-commit` | 写提交信息或 PR 描述 |
 | `github-actions` | 创建或修改工作流 |
 | `superpowers-output` | 使用 superpowers 能力 |
+| `go-style` | 写、改、重构或审查 Go 代码 |
 
 `hooks/check-punct.py <file>` 检查代码注释里的中英文标点混用与非 ASCII 符号，只报不改。
